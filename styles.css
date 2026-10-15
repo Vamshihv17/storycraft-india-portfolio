@@ -838,33 +838,41 @@ h2 {
 }
 
 .stat-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   margin: 0 auto 16px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  font-size: 1.4rem;
   background: var(--cream);
   border: 1px solid var(--line);
+  transition: transform var(--transition-fast);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.08);
+}
+
+.stat-icon svg {
+  display: block;
 }
 
 .instagram-icon {
   color: #d62976;
   background: rgba(214, 41, 118, 0.08);
-  border-color: rgba(214, 41, 118, 0.2);
+  border-color: rgba(214, 41, 118, 0.25);
 }
 
 .eye-icon {
   color: var(--gold-dark);
-  background: rgba(197, 155, 95, 0.1);
-  border-color: rgba(197, 155, 95, 0.25);
+  background: rgba(197, 155, 95, 0.12);
+  border-color: rgba(197, 155, 95, 0.3);
 }
 
 .youtube-icon {
   color: #ff0000;
   background: rgba(255, 0, 0, 0.08);
-  border-color: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.25);
 }
 
 .stat-card strong {
@@ -1161,9 +1169,111 @@ h2 {
   height: 520px;
   background: var(--navy);
   overflow: hidden;
+}
+
+.reel-poster {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 20px;
+  cursor: pointer;
+  z-index: 2;
+  transition: opacity var(--transition-normal);
+  color: var(--white);
+  text-align: center;
+}
+
+.poster-1 { background: linear-gradient(135deg, #182647 0%, #3e1b29 55%, #12192e 100%); }
+.poster-2 { background: linear-gradient(135deg, #2b172a 0%, #52273e 55%, #152238 100%); }
+.poster-3 { background: linear-gradient(135deg, #382417 0%, #684826 55%, #192338 100%); }
+.poster-4 { background: linear-gradient(135deg, #0d1e38 0%, #20355f 55%, #3d263b 100%); }
+.poster-5 { background: linear-gradient(135deg, #091a2e 0%, #14375a 55%, #38203c 100%); }
+.poster-6 { background: linear-gradient(135deg, #2e1d13 0%, #5c3f2b 55%, #21202e 100%); }
+
+.poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(197, 155, 95, 0.12) 0%, rgba(13, 23, 46, 0.5) 85%);
+  pointer-events: none;
+}
+
+.poster-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+
+.poster-ig-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 23, 46, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  backdrop-filter: blur(8px);
+}
+
+.reel-play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--navy);
+  border: 1px solid var(--gold-light);
+  padding: 13px 24px;
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 28px var(--gold-glow);
+  transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.reel-play-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--navy);
+}
+
+.reel-card:hover .reel-play-btn {
+  transform: scale(1.06);
+  background: #f1d7a8;
+  box-shadow: 0 14px 34px rgba(197, 155, 95, 0.45);
+}
+
+.poster-hint {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.reel-video-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.reel-card.is-playing .reel-poster {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reel-card.is-playing .reel-video-slot {
+  z-index: 4;
 }
 
 .reel-frame {
@@ -1171,6 +1281,29 @@ h2 {
   height: 100%;
   border: 0;
   display: block;
+}
+
+.reel-stop-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: rgba(13, 23, 46, 0.92);
+  color: var(--white);
+  border: 1px solid var(--gold);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.reel-stop-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: var(--white);
 }
 
 .reel-card-footer {
@@ -1590,8 +1723,18 @@ h2 {
 }
 
 .channel-icon {
-  font-size: 1.25rem;
-  color: var(--gold-dark);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.channel-icon svg {
+  display: block;
 }
 
 .channel-text {
